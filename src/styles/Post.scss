@@ -1,0 +1,22 @@
+.card {
+  .card-body {
+    position: relative;
+
+    .card-title{
+      min-height: 50px;
+    }
+
+    .comment-icon{
+        margin-right: 5px !important;
+    }
+    .btn {
+      top: 10px;
+      right: 10px;
+      font-size: 12px;
+      .heart-icon {
+        margin-top:-4px;
+        margin-right: 4px;
+      }
+    }
+  }
+}
