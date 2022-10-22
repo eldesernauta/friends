@@ -1,4 +1,5 @@
-import {Container} from 'reactstrap'
+import {Container} from 'reactstrap' 
+import '../../styles/styles.scss'
 
 const Main = ({children}) => {
  
