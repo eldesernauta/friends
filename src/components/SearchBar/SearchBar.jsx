@@ -1,10 +1,10 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { InputGroup, Input, Button } from "reactstrap";
 
-const SearchBar = () => {
+import { InputGroup, Input } from "reactstrap";
+
+const SearchBar = ({placeholder, onSearch}) => {
   return (
     <InputGroup>
-      <Input placeholder="Search" />
+      <Input onChange={onSearch} placeholder={placeholder} />
     </InputGroup>
   );
 };
