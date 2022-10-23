@@ -32,8 +32,9 @@ const NavBar = ({ onLogoClick, onProfileClick }) => {
             navbar
             className="w-100 d-flex flex-column flex-wrap justify-content-center gap-3"
           >
-            {profiles.map((profile) => (
+            {profiles.map((profile, i) => (
               <Profile
+                key={i}
                 avatar={profile.avatar}
                 username={profile.username}
                 bio={profile.bio}

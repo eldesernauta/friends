@@ -6,10 +6,12 @@ import NavBar from './components/Header/NavBar'
 import Main from './components/Main/Main';
 import PostList from './components/PostList/PostList';
 import SearchBar from './components/SearchBar/SearchBar';
+import Login from "./components/Login/Login";
 
 function App() {
   const [search, setSearch] = useState("");
   const [posts, setPosts] = useState(false)
+  const [token, setToken] = useState(localStorage.getItem("token"))
 
   useEffect(() => {
     setInterval(() => {
@@ -17,18 +19,22 @@ function App() {
     }, 3000)
   }, [])
 
-  let searchHandler = (e) => {
+  const searchHandler = (e) => {
     //convert input text to lower case
     var lowerCase = e.target.value.toLowerCase();
     setSearch(lowerCase);
   };
+
   return (
     <div className="App">
       <NavBar />
-      <Main>
+      {token ? <Main>
         <SearchBar placeholder="Search" onSearch={searchHandler} />
         {posts === false ? "Loading..." : posts && <PostList input={search} />}
-      </Main>
+      </Main> :
+        <Login setToken={setToken} />
+      }
+
     </div>
   );
 }
