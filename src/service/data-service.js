@@ -1,11 +1,13 @@
-import episodes from '../data/friends-episodes.json'
+import axios from "axios";
 
 export function getEpisodes() {
-    return new Promise((res, rej) => {
-        window.addEventListener("load", function () {
-            setTimeout(() => {
-                res(episodes.episode_in_season)
-            }, 3000)
-        })
+    return axios.get("https://three-points.herokuapp.com/api", {
+        headers: { authorization: `Bearer ${localStorage.getItem("token")}` }
     })
+        .then((res) => res.data)
+}
+
+export function login(username, password) {
+    return axios.post("https://three-points.herokuapp.com/api/login", { username, password })
+        .then((res) => res.data)
 }
