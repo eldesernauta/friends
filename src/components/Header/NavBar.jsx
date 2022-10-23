@@ -4,7 +4,7 @@ import logo from "../../assets/img/logo.png";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav } from "reactstrap";
 import Profile from "../../components/Profile/Profile";
 
-const infos = [
+const profiles = [
   {
     avatar: "https://eldesernauta.com/thumbnail.png",
     username: "@eldesernauta",
@@ -32,12 +32,11 @@ const NavBar = ({ onLogoClick, onProfileClick }) => {
             navbar
             className="w-100 d-flex flex-column flex-wrap justify-content-center gap-3"
           >
-            {infos.map((info) => (
+            {profiles.map((profile) => (
               <Profile
-                avatar={info.avatar}
-                username={info.username}
-                bio={info.bio}
-                
+                avatar={profile.avatar}
+                username={profile.username}
+                bio={profile.bio}
               />
             ))}
           </Nav>
