@@ -1,8 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
 import { login } from "../../service/data-service";
-
-const token = localStorage.getItem("token");
 
 const Login = ({ setToken }) => {
   const [err, setErr] = useState();
