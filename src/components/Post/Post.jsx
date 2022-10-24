@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "../../styles/Post.scss";
 import heartIcon from "../../assets/img/heart.svg";
-import filmIcon from "../../assets/img/film.svg";
 import {
   Card,
   CardBody,
@@ -10,8 +9,9 @@ import {
   CardText,
   Button,
 } from "reactstrap";
+import { Link } from "react-router-dom";
 
-const Post = ({ img, title, season, episode, director, date }) => {
+const Post = ({ img, title, season, episode, director, id }) => {
   
   const [likes, setLikes] = useState(0);
 
@@ -33,16 +33,10 @@ const Post = ({ img, title, season, episode, director, date }) => {
           Episode: {episode}
         </CardSubtitle>
         <CardTitle tag="h6">{title}</CardTitle>
-        <CardText className="align-left"> {director}</CardText>
-        <CardText className="text-muted" tag="h6">
-          <img
-            src={filmIcon}
-            className="comment-icon"
-            alt="comment-icon"
-            width="20px"
-          />
-          {date}
-        </CardText>
+        <CardText className="align-left small">Directed by: {director}</CardText>
+        <Link className="btn btn-dark" to={`/episodes/${id}`}>
+          Ver Capitulo
+        </Link>
         <Button
           id="likes-btn"
           onClick={handleLikes}
