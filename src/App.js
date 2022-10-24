@@ -1,40 +1,43 @@
 
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"
 import './App.css';
 import './styles/styles.scss'
 import NavBar from './components/Header/NavBar'
 import Main from './components/Main/Main';
-import PostList from './components/PostList/PostList';
-import SearchBar from './components/SearchBar/SearchBar';
+import Home from './components/Home/Home';
 import Login from "./components/Login/Login";
+import Profile from './components/Profile/Profile';
+import { Routes, Route } from "react-router";
+import PostDetail from "./components/PostDetail/PostDetail";
+
 
 function App() {
-  const [search, setSearch] = useState("");
-  const [posts, setPosts] = useState(false)
   const [token, setToken] = useState(localStorage.getItem("token"))
 
-  useEffect(() => {
-    setInterval(() => {
-      setPosts(!posts)
-    }, 3000)
-  }, [])
+  const navigate = useNavigate()
 
-  const searchHandler = (e) => {
-    //convert input text to lower case
-    var lowerCase = e.target.value.toLowerCase();
-    setSearch(lowerCase);
-  };
+  useEffect(() => {
+    if (!token) {
+      navigate('/login')
+    } else {
+      navigate('/episodes')
+    }
+  }, [token])
 
   return (
     <div className="App">
       <NavBar />
-      {token ? <Main>
-        <SearchBar placeholder="Search" onSearch={searchHandler} />
-        {posts === false ? "Loading..." : posts && <PostList input={search} />}
-      </Main> :
-        <Login setToken={setToken} />
-      }
+      <Main>
 
+        <Routes>
+          <Route path="/episodes" element={<Home />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/profile" element={<Profile />}></Route>
+          <Route path="/episodes/:id" element={<PostDetail />}></Route>
+        </Routes>
+
+      </Main>
     </div>
   );
 }

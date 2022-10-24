@@ -1,47 +1,58 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
+import "../../styles/NavBar.scss";
+import { Link } from "react-router-dom";
 import logo from "../../assets/img/logo.png";
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav } from "reactstrap";
-import Profile from "../../components/Profile/Profile";
+import profile from "../../assets/img/profile.svg";
+import { Navbar } from "reactstrap";
 
-const profiles = [
-  {
-    avatar: "https://eldesernauta.com/thumbnail.png",
-    username: "@eldesernauta",
-    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-];
+const token = localStorage.getItem("token");
 
 const NavBar = ({ onLogoClick, onProfileClick }) => {
-  const [collapsed, setCollapsed] = useState(true);
+  const navigate = useNavigate();
 
-  onProfileClick = () => setCollapsed(!collapsed);
-
-  onLogoClick = () => setCollapsed(true);
+  const logout = () => {
+    localStorage.clear();
+    localStorage.clearToken();
+    navigate("/login");
+    if (localStorage.getItem()) {
+      window.location.reload();
+    }
+    return "you were logout";
+  };
 
   return (
     <div className="header">
       <Navbar color="dark" light className="px-0 px-lg-5" fixed="top">
-        <NavbarBrand onClick={onLogoClick} className="me-auto">
-          <img src={logo} width="150px" alt="logo" />
-        </NavbarBrand>
-        <NavbarToggler onClick={onProfileClick} className="me-2 text-white" />
-
-        <Collapse isOpen={!collapsed} navbar>
-          <Nav
-            navbar
-            className="w-100 d-flex flex-column flex-wrap justify-content-center gap-3"
-          >
-            {profiles.map((profile, i) => (
-              <Profile
-                key={i}
-                avatar={profile.avatar}
-                username={profile.username}
-                bio={profile.bio}
+        <Link className="me-auto" to="/episodes">
+          <img id="logo" src={logo} width="150px" alt="logo" />
+        </Link>
+        {token ? (
+          <>
+            <Link
+              id="logout"
+              className="login mx-3 text-white text-decoration-none"
+              onClick={logout}
+            >
+              Logout
+            </Link>
+            <Link className="profile-icon" to="/profile">
+              <img
+                src={profile}
+                className="comment-icon"
+                alt="comment-icon"
+                width="40px"
               />
-            ))}
-          </Nav>
-        </Collapse>
+            </Link>
+          </>
+        ) : (
+          <Link
+            className="login mx-3 text-white text-decoration-none"
+            to="/login"
+          >
+            Login
+          </Link>
+        )}
       </Navbar>
     </div>
   );
